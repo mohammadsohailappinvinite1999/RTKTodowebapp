@@ -8,9 +8,8 @@ export const storeRTK = configureStore({
   reducer: {
     todo: TodoSlice,
   },
-  devTools: true,
   preloadedState: {
     todo: [{ todo: "preloaded State", completed: false, id: "213213112" }],
   },
-  middleware: (getdefaults) => getdefaults().concat(logger),
+  // middleware: (getdefaults) => getdefaults().concat(logger),
 });

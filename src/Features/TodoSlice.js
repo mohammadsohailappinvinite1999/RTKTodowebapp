@@ -12,7 +12,7 @@ const TodoSlice = createSlice({
   initialState: [],
   reducers: {
     createTodo: (state, action) => {
-      state.push(action.payload);
+      state.push(action.payload);  
     },
     deleteTodo: (state, action) => {
       return state.filter((el) => el.id !== action.payload);
@@ -37,5 +37,6 @@ export const deleteTodoAsynchronously = (id) => async (dispatch, getState) => {
 
 export const { createTodo, deleteTodo, updateTodo } = TodoSlice.actions;
 
-
 export default TodoSlice.reducer;
+
+export const getTodoState = (state) => state.todo;

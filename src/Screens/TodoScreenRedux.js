@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { v4 as uuid, v4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
-import { getTodoState } from "../reducer/TodoReducer";
-import { addTodo } from "../actions/TodoAction";
 import Todo from "../Components/Todo";
-import { createTodo } from "../Features/TodoSlice";
+import { createTodo, getTodoState } from "../Features/TodoSlice";
 
 const TodoScreen = () => {
   const [todo, setTodo] = useState("");
-
+  // (state) => state.todo;
   const todoState = useSelector(getTodoState);
 
   const dispatch = useDispatch();
@@ -18,15 +16,6 @@ const TodoScreen = () => {
   };
 
   const createHandler = (e) => {
-    //redux pure
-    // dispatch(
-    //   addTodo({
-    //     todo,
-    //     completed: false,
-    //     id: v4(),
-    //   })
-    // );
-
     //reduxRtk
     dispatch(
       createTodo({
