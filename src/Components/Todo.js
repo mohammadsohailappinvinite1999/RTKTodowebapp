@@ -1,42 +1,42 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import {
-  deleteTodo,
-  deleteTodoAsynchronously,
-  updateTodo as rtkupdateTodo,
-} from "../Features/TodoSlice";
-const Todo = ({ todo, completed, Tododata }) => {
-  const dispatch = useDispatch();
+// import {
+//   deleteTodo,
+//   deleteTodoAsynchronously,
+//   updateTodo as rtkupdateTodo,
+// } from "../Features/TodoSlice";
+import { useGetTodosQuery, useDeleteTodoMutation } from "../service/TodoApi";
+const Todo = ({ id, todoData }) => {
+
+  const [deleteTodo, { isError, isLoading, error }] = useDeleteTodoMutation();
 
   const onDeleteHandler = () => {
-    //RTK Action
-    dispatch(deleteTodo(Tododata.id));
+    deleteTodo(id);
   };
 
   const onUpdateHandler = (data) => {
     //Rtk Action
-    dispatch(rtkupdateTodo(data));
-  };
-
-  const onAsyncDelete = () => {
-    //RTK Action
-    dispatch(deleteTodoAsynchronously(Tododata.id));
+    // dispatch(rtkupdateTodo(data));
   };
 
   return (
     <div>
-      <h4 style={{ textDecoration: completed ? "line-through" : "none" }}>
-        {todo}
+      <h4
+        style={{
+          textDecoration: todoData?.completed ? "line-through" : "none",
+        }}
+      >
+        {todoData.todo}
       </h4>
       <input
         onChange={() => {
-          onUpdateHandler({ ...Tododata, completed: !completed });
+          onUpdateHandler({ ...todoData, completed: !todoData.completed });
         }}
         type="checkbox"
-        checked={completed}
+        checked={todoData?.completed}
       />
       <button onClick={onDeleteHandler}>delete</button>
-      <button onClick={onAsyncDelete}> Delete Asynchronously</button>
+      {/* <button onClick={onAsyncDelete}> Delete Asynchronously</button> */}
     </div>
   );
 };
